@@ -12,8 +12,6 @@ func countingSort(array []int) {
 		countArray[array[i]]++
 	}
 
-	fmt.Println(countArray)
-
 	z := 0
 	for i, c := range countArray {
 		for c > 0 {
