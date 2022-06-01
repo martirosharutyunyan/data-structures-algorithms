@@ -1,8 +1,8 @@
 package main
 
-import "fmt"
-
-var diapason = 1000
+import (
+	"fmt"
+)
 
 func getMax(array []int) int {
 	var max = array[0]
@@ -16,32 +16,37 @@ func getMax(array []int) int {
 	return max
 }
 
-func countingSort(array []int) {
-	// var countArray = make([]int, diapason)
-	// for i := 0; i < len(array); i++ {
-	// 	countArray[array[i]]++
-	// }
+func countingSort(array []int, exp int) []int {
+	var countArray = make([]int, 10)
+	var output = make([]int, len(array))
+	for i := 0; i < len(array); i++ {
+		countArray[(array[i]/exp)%10]++
+	}
 
-	// z := 0
-	// for i, c := range countArray {
-	// 	for c > 0 {
-	// 		array[z] = i
-	// 		c--
-	// 		z++
-	// 	}
-	// }
+	for i := 1; i < 10; i++ {
+		countArray[i] += countArray[i-1]
+	}
+
+	for i := len(array) - 1; i >= 0; i-- {
+		countArray[(array[i]/exp)%10]--
+		output[countArray[(array[i]/exp)%10]] = array[i]
+	}
+
+	return output
 }
 
-func radixSort(array []int) {
+func radixSort(array []int) []int {
 	var max = getMax(array)
 
 	for i := 1; max/i > 0; i *= 10 {
-		// countingSort(array)
+		array = countingSort(array, i)
 	}
+
+	return array
 }
 
 func main() {
 	var array []int = []int{64, 25, 12, 22, 11}
-	radixSort(array)
+	array = radixSort(array)
 	fmt.Println(array)
 }
