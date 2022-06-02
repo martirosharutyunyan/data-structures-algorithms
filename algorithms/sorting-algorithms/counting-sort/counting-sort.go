@@ -19,7 +19,6 @@ func countingSort(array []int) []int {
 	}
 
 	for i := len(array) - 1; i >= 0; i-- {
-		fmt.Println(i, array[i], array, countArray, output)
 		countArray[array[i]] -= 1
 		output[countArray[array[i]]] = array[i]
 	}

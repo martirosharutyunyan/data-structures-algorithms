@@ -12,7 +12,6 @@ func insertionSort[T Type](array []T) {
 	for i := 1; i < len(array); i++ {
 		key = array[i]
 		j = i - 1
-		fmt.Println(key)
 
 		for j >= 0 && array[j] > key {
 			array[j+1] = array[j]
