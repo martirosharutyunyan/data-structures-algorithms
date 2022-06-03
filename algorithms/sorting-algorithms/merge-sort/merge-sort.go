@@ -64,3 +64,55 @@ func main() {
 	array = mergeSort(array)
 	fmt.Println(array)
 }
+
+// second variant
+// func merge[T Type](array []T, left int, middle int, right int) {
+// 	n1 := middle - left + 1
+// 	n2 := right - middle
+
+// 	l := make([]T, n1)
+// 	r := make([]T, n2)
+
+// 	for i := 0; i < n1; i++ {
+// 		l[i] = array[left+i]
+// 	}
+// 	for i := 0; i < n2; i++ {
+// 		r[i] = array[middle+i+1]
+// 	}
+
+// 	i, j, k := 0, 0, left
+
+// 	for i < n1 && j < n2 {
+// 		if l[i] <= r[j] {
+// 			array[k] = l[i]
+// 			i++
+// 		} else {
+// 			array[k] = r[j]
+// 			j++
+// 		}
+// 		k++
+// 	}
+
+// 	for i < len(l) {
+// 		array[k] = l[i]
+// 		i++
+// 		k++
+// 	}
+
+// 	for j < len(r) {
+// 		array[k] = r[j]
+// 		j++
+// 		k++
+// 	}
+
+// }
+
+// func mergeSort[T Type](array []T, left int, right int) {
+// 	if left >= right {
+// 		return
+// 	}
+// 	middle := left + (right-left)/2
+// 	mergeSort(array, left, middle)
+// 	mergeSort(array, middle+1, right)
+// 	merge(array, left, middle, right)
+// }
