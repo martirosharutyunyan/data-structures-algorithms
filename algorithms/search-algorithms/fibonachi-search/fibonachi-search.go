@@ -19,10 +19,9 @@ func fibonachiSearch(array []int, elem int) int {
 
 	var offset = -1
 
-	fmt.Println(fibM, fibMMm1, fibMMm2)
-
 	for fibM > 1 {
 		i := int(math.Min(float64(offset+fibMMm2), float64(len(array)-1)))
+
 		if array[i] < elem {
 			fibM = fibMMm1
 			fibMMm1 = fibMMm2
