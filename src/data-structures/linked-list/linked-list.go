@@ -7,12 +7,12 @@ type Node struct {
 	Next  *Node
 }
 
-type LinkedList struct {
+type List struct {
 	Head *Node
 	Tail *Node
 }
 
-func (list *LinkedList) Push(value interface{}) {
+func (list *List) Push(value interface{}) {
 	newNode := &Node{Value: value}
 	if list.Tail == nil {
 		list.Tail = newNode
@@ -21,7 +21,7 @@ func (list *LinkedList) Push(value interface{}) {
 	list.Head = newNode
 }
 
-func (list *LinkedList) Append(value interface{}) {
+func (list *List) Append(value interface{}) {
 	newNode := &Node{Value: value}
 
 	if list.Head == nil {
@@ -38,7 +38,7 @@ func (list *LinkedList) Append(value interface{}) {
 	current.Next = newNode
 }
 
-func (list *LinkedList) Pop() {
+func (list *List) Pop() {
 	if list.Head.Next == nil {
 		list.Head = nil
 		return
@@ -52,13 +52,41 @@ func (list *LinkedList) Pop() {
 	current.Next = nil
 }
 
-func (list *LinkedList) Shift() {
+func (list *List) Shift() {
 	list.Head = list.Head.Next
 }
 
+func (list *List) Count() int {
+	length := 0
+
+	current := list.Head
+	for current != nil {
+		current = current.Next
+		length++
+	}
+
+	return length
+}
+
+func (list *List) Reverse() {
+	var prev, next *Node
+
+	current := list.Head
+
+	for current != nil {
+		next = current.Next
+		prev = next
+
+	}
+}
+
 func main() {
-	var list LinkedList = LinkedList{}
+	var list List = List{}
 	list.Append(10)
-	list.Pop()
-	fmt.Printf("%+v", list.Head)
+	list.Append(10)
+	list.Append(10)
+	list.Append(10)
+	// list.Pop()
+	// fmt.Printf("%+v", list.Head)
+	fmt.Println(list.Count())
 }
