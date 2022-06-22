@@ -7,12 +7,12 @@ type Node struct {
 	Next  *Node
 }
 
-type List struct {
+type SinglyList struct {
 	Head *Node
 	Tail *Node
 }
 
-func (list *List) Push(value interface{}) {
+func (list *SinglyList) Push(value interface{}) {
 	newNode := &Node{Value: value}
 	if list.Tail == nil {
 		list.Tail = newNode
@@ -21,7 +21,7 @@ func (list *List) Push(value interface{}) {
 	list.Head = newNode
 }
 
-func (list *List) Append(value interface{}) {
+func (list *SinglyList) Append(value interface{}) {
 	newNode := &Node{Value: value}
 
 	if list.Head == nil {
@@ -38,25 +38,30 @@ func (list *List) Append(value interface{}) {
 	current.Next = newNode
 }
 
-func (list *List) Pop() {
+func (list *SinglyList) Pop() {
+	if list.Head == nil {
+		return
+	}
+
 	if list.Head.Next == nil {
 		list.Head = nil
 		return
 	}
 
 	current := list.Head
-	for current.Next != nil {
+
+	for current.Next.Next != nil {
 		current = current.Next
 	}
 
 	current.Next = nil
 }
 
-func (list *List) Shift() {
+func (list *SinglyList) Shift() {
 	list.Head = list.Head.Next
 }
 
-func (list *List) Count() int {
+func (list *SinglyList) Count() int {
 	length := 0
 
 	current := list.Head
@@ -68,25 +73,50 @@ func (list *List) Count() int {
 	return length
 }
 
-func (list *List) Reverse() {
+func (list *SinglyList) Reverse() {
 	var prev, next *Node
 
 	current := list.Head
 
 	for current != nil {
 		next = current.Next
-		prev = next
-
+		current.Next = prev
+		prev = current
+		current = next
 	}
+
+	list.Head = prev
+}
+
+func (list *SinglyList) NthNode(n int) interface{} {
+	current := list.Head
+
+	for i := 1; i <= n; i++ {
+		if n == i {
+			return current
+		}
+		current = current.Next
+	}
+
+	return nil
+}
+
+func print(list *SinglyList) {
+	str := ""
+	current := list.Head
+
+	for current != nil {
+		str += fmt.Sprintf("%d -> ", current.Value)
+		current = current.Next
+	}
+
+	fmt.Println(str)
 }
 
 func main() {
-	var list List = List{}
-	list.Append(10)
-	list.Append(10)
-	list.Append(10)
-	list.Append(10)
-	// list.Pop()
-	// fmt.Printf("%+v", list.Head)
-	fmt.Println(list.Count())
+	list := SinglyList{}
+	list.Append(4)
+	list.Pop()
+	list.Append(5)
+	print(&list)
 }
