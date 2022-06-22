@@ -54,64 +54,76 @@ func (list *CycleList) Append(value interface{}) {
 }
 
 func (list *CycleList) Pop() {
-	if list.Head.Next == nil {
-		list.Head = nil
+	if list.Head == nil {
 		return
 	}
 
 	current := list.Head
-	for current.Next != nil {
+	if current.Next == list.Head {
+		list.Head = nil
+		return
+	}
+
+	for true {
+		if current.Next.Next == list.Head {
+			current.Next = list.Head
+			break
+		}
+		current = current.Next
+	}
+}
+
+func (list *CycleList) Shift() {
+	if list.Head == nil {
+		return
+	}
+
+	if list.Head == list.Head.Next {
+		list.Head = nil
+		return
+	}
+
+	list.Head = list.Head.Next
+	list.Pop()
+}
+
+func (list *CycleList) Count() int {
+	length := 0
+
+	if list.Head == nil {
+		return length
+
+	}
+
+	current := list.Head
+	for true {
+		length++
+		if current.Next == list.Head {
+			break
+		}
 		current = current.Next
 	}
 
-	current.Next = nil
+	return length
 }
 
-// func (list *CycleList) Shift() {
-// 	list.Head = list.Head.Next
-// }
+func (list *CycleList) NthNode(n int) interface{} {
+	current := list.Head
 
-// func (list *CycleList) Count() int {
-// 	length := 0
+	for i := 0; i <= n; i++ {
+		if n == i {
+			return current
+		}
+		if current.Next == list.Head {
+			return nil
+		}
+		current = current.Next
+	}
 
-// 	current := list.Head
-// 	for current != nil {
-// 		current = current.Next
-// 		length++
-// 	}
+	return nil
+}
 
-// 	return length
-// }
-
-// func (list *CycleList) Reverse() {
-// 	var prev, next *Node
-
-// 	current := list.Head
-
-// 	for current != nil {
-// 		next = current.Next
-// 		current.Next = prev
-// 		prev = current
-// 		current = next
-// 	}
-
-// 	list.Head = prev
-// }
-
-// func (list *CycleList) NthNode(n int) interface{} {
-// 	current := list.Head
-
-// 	for i := 1; i <= n; i++ {
-// 		if n == i {
-// 			return current
-// 		}
-// 		current = current.Next
-// 	}
-
-// 	return nil
-// }
-
-func print(list *CycleList) {
+func (list *CycleList) Print() {
 	str := ""
 	current := list.Head
 
@@ -126,13 +138,10 @@ func print(list *CycleList) {
 	fmt.Println(str)
 }
 
-// func main() {
-// 	cycle := CycleList{}
-// 	cycle.Append(6)
-// 	cycle.Append(6)
-// 	cycle.Append(6)
-// 	cycle.Append(6)
-// 	cycle.Append(7)
-
-// 	print(&cycle)
-// }
+func main() {
+	cycle := CycleList{}
+	cycle.Append(6)
+	cycle.Append(7)
+	cycle.Append(8)
+	fmt.Println(cycle.NthNode(0))
+}

@@ -1,4 +1,4 @@
-package main
+package linkedList
 
 import "fmt"
 
@@ -91,7 +91,7 @@ func (list *SinglyList) Reverse() {
 func (list *SinglyList) NthNode(n int) interface{} {
 	current := list.Head
 
-	for i := 1; i <= n; i++ {
+	for i := 0; i <= n; i++ {
 		if n == i {
 			return current
 		}
@@ -101,7 +101,7 @@ func (list *SinglyList) NthNode(n int) interface{} {
 	return nil
 }
 
-func print(list *SinglyList) {
+func (list *SinglyList) Print() {
 	str := ""
 	current := list.Head
 
@@ -111,12 +111,4 @@ func print(list *SinglyList) {
 	}
 
 	fmt.Println(str)
-}
-
-func main() {
-	list := SinglyList{}
-	list.Append(4)
-	list.Pop()
-	list.Append(5)
-	print(&list)
 }
