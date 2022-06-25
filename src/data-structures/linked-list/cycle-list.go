@@ -1,4 +1,4 @@
-package main
+package cycleList
 
 import (
 	"fmt"
@@ -136,12 +136,4 @@ func (list *CycleList) Print() {
 	}
 
 	fmt.Println(str)
-}
-
-func main() {
-	cycle := CycleList{}
-	cycle.Append(6)
-	cycle.Append(7)
-	cycle.Append(8)
-	fmt.Println(cycle.NthNode(0))
 }

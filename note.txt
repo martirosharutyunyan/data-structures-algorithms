@@ -1,1 +1,2 @@
-1.watch serial sort and external sort after heap and heapify || -
+1. watch serial sort and external sort after heap and heapify || -
+2. cartesian tree and cartesian tree sort
