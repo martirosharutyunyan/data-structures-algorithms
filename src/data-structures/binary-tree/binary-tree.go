@@ -1,16 +1,107 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 type BinaryTree struct {
-	Value interface{}
-	Root  *Node
+	Root *Node
 }
 
 type Node struct {
 	Value interface{}
 	Left  *Node
 	Right *Node
+}
+
+type Height struct {
+	h int
+}
+
+func Preorder(root *Node) {
+	if root == nil {
+		return
+	}
+
+	q := []*Node{}
+
+	for root != nil || len(q) != 0 {
+		if root != nil {
+			fmt.Println(root.Value)
+			q = append(q, root)
+			root = root.Left
+		} else {
+			root = q[len(q)-1]
+			q = q[:len(q)-1]
+			root = root.Right
+		}
+	}
+}
+
+func Inorder(root *Node) {
+	if root == nil {
+		return
+	}
+
+	Inorder(root.Left)
+	fmt.Println(root.Value)
+	Inorder(root.Right)
+}
+
+func Postorder(root *Node) []interface{} {
+	if root == nil {
+		return nil
+	}
+	left := Postorder(root.Left)
+	right := Postorder(root.Right)
+
+	output := make([]interface{}, 0)
+
+	output = append(output, left...)
+	output = append(output, right...)
+	output = append(output, root.Value)
+
+	return output
+}
+
+func Levelorder(root *Node) {
+	q := []*Node{root}
+	var node *Node
+
+	for len(q) > 0 {
+		node = q[0]
+		q = q[1:]
+		fmt.Println(node.Value)
+		if node.Left != nil {
+			q = append(q, node.Left)
+		}
+		if node.Right != nil {
+			q = append(q, node.Right)
+		}
+	}
+}
+
+func Search(root *Node, data interface{}) int {
+	q := []*Node{root}
+	var node *Node
+
+	for len(q) > 0 {
+		node = q[0]
+		q = q[1:]
+		if node.Value == data {
+			return 1
+		}
+
+		if node.Left != nil {
+			q = append(q, node.Left)
+		}
+		if node.Right != nil {
+			q = append(q, node.Right)
+		}
+	}
+
+	return -1
 }
 
 func Insert(temp *Node, value interface{}) {
@@ -38,22 +129,6 @@ func Insert(temp *Node, value interface{}) {
 		} else {
 			q = append(q, temp.Right)
 		}
-	}
-}
-
-func Print(root *Node) {
-	q := []*Node{root}
-
-	for len(q) != 0 {
-		temp := *q[len(q)-1]
-		q = q[:len(q)-1]
-		if temp.Right != nil {
-			q = append(q, temp.Right)
-		}
-		if temp.Left != nil {
-			q = append(q, temp.Left)
-		}
-		fmt.Println(temp.Value)
 	}
 }
 
@@ -131,8 +206,46 @@ func Delete(root *Node, value interface{}) {
 	}
 }
 
+func GetHeight(root *Node) int {
+	var x, y int
+
+	if root != nil {
+		x = GetHeight(root.Left)
+		y = GetHeight(root.Right)
+
+		if x > y {
+			return x + 1
+		}
+		return y + 1
+	}
+
+	return 0
+}
+
+func DiameterOpt(root *Node, height *Height) int {
+	leftHeight := &Height{}
+	rightHeight := &Height{}
+
+	if root == nil {
+		height.h = 0
+		return 0
+	}
+
+	leftDiameter := DiameterOpt(root.Left, leftHeight)
+	rightDiameter := DiameterOpt(root.Right, rightHeight)
+	height.h = int(math.Max(float64(leftDiameter), float64(rightDiameter))) + 1
+
+	return int(math.Max(float64(leftHeight.h)+float64(rightHeight.h), math.Max(float64(leftDiameter), float64(rightDiameter))))
+}
+
+func Diameter(root *Node) int {
+	height := &Height{}
+
+	return DiameterOpt(root, height)
+}
+
 func main() {
-	tree := BinaryTree{Value: 1, Root: &Node{Value: 5}}
+	tree := BinaryTree{Root: &Node{Value: 1}}
 	node2 := Node{Value: 2}
 	node3 := Node{Value: 3}
 	node4 := Node{Value: 4}
@@ -144,8 +257,11 @@ func main() {
 	node2.Left = &node4
 	node2.Right = &node5
 	node3.Left = &node6
-	node4.Right = &node7
-	Insert(tree.Root, 8)
-	Delete(tree.Root, 5)
-	Print(tree.Root)
+	node3.Right = &node7
+	//		 1
+	//   2      3
+	// 4   5  6   7
+	// Preorder(tree.Root)
+	// Inorder(tree.Root)
+	// Levelorder(tree.Root)
 }
