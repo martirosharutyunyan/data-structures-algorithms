@@ -19,50 +19,109 @@ type Height struct {
 	h int
 }
 
-func Preorder(root *Node) {
+func PreorderRecursive(root *Node) {
 	if root == nil {
 		return
 	}
 
-	q := []*Node{}
+	fmt.Println(root.Value)
 
-	for root != nil || len(q) != 0 {
+	PreorderRecursive(root.Left)
+	PreorderRecursive(root.Right)
+}
+
+func PreorderIterative(root *Node) {
+	if root == nil {
+		return
+	}
+
+	stack := []*Node{}
+
+	for root != nil || len(stack) != 0 {
 		if root != nil {
 			fmt.Println(root.Value)
-			q = append(q, root)
+			stack = append(stack, root)
 			root = root.Left
 		} else {
-			root = q[len(q)-1]
-			q = q[:len(q)-1]
+			root = stack[len(stack)-1]
+			stack = stack[:len(stack)-1]
 			root = root.Right
 		}
 	}
 }
 
-func Inorder(root *Node) {
+func InorderRecursive(root *Node) {
 	if root == nil {
 		return
 	}
 
-	Inorder(root.Left)
+	InorderRecursive(root.Left)
 	fmt.Println(root.Value)
-	Inorder(root.Right)
+	InorderRecursive(root.Right)
 }
 
-func Postorder(root *Node) []interface{} {
+func InorderIterative(root *Node) {
 	if root == nil {
-		return nil
+		return
 	}
-	left := Postorder(root.Left)
-	right := Postorder(root.Right)
 
-	output := make([]interface{}, 0)
+	stack := []*Node{}
 
-	output = append(output, left...)
-	output = append(output, right...)
-	output = append(output, root.Value)
+	current := root
 
-	return output
+	for current != nil || len(stack) > 0 {
+		for current != nil {
+			stack = append(stack, current)
+			current = current.Left
+		}
+
+		current = stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+
+		fmt.Println(current.Value)
+		current = current.Right
+	}
+}
+
+func PostorderRecursive(root *Node) {
+	if root == nil {
+		return
+	}
+
+	PostorderRecursive(root.Left)
+	PostorderRecursive(root.Right)
+
+	fmt.Println(root.Value)
+}
+
+func PostOrderIterative(root *Node) {
+	firstStack, secondStack := []*Node{}, []*Node{}
+
+	if root == nil {
+		return
+	}
+	firstStack = append(firstStack, root)
+
+	var temp *Node
+	for len(firstStack) > 0 {
+		temp = firstStack[len(firstStack)-1]
+		firstStack = firstStack[:len(firstStack)-1]
+		secondStack = append(secondStack, temp)
+
+		if temp.Left != nil {
+			firstStack = append(firstStack, temp.Left)
+		}
+
+		if temp.Right != nil {
+			firstStack = append(firstStack, temp.Right)
+		}
+	}
+
+	for len(secondStack) > 0 {
+		temp = secondStack[len(secondStack)-1]
+		secondStack = secondStack[:len(secondStack)-1]
+		fmt.Println(temp)
+	}
 }
 
 func Levelorder(root *Node) {
@@ -110,24 +169,24 @@ func Insert(temp *Node, value interface{}) {
 		return
 	}
 
-	q := []*Node{temp}
+	stack := []*Node{temp}
 
-	for len(q) != 0 {
-		temp := q[len(q)-1]
-		q = q[:len(q)-1]
+	for len(stack) != 0 {
+		temp := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
 
 		if temp.Left == nil {
 			temp.Left = &Node{Value: value}
 			break
 		} else {
-			q = append(q, temp.Left)
+			stack = append(stack, temp.Left)
 		}
 
 		if temp.Right == nil {
 			temp.Right = &Node{Value: value}
 			break
 		} else {
-			q = append(q, temp.Right)
+			stack = append(stack, temp.Right)
 		}
 	}
 }
@@ -244,6 +303,70 @@ func Diameter(root *Node) int {
 	return DiameterOpt(root, height)
 }
 
+func IsFullBtree(root *Node) bool {
+	q := []*Node{root}
+	var node *Node
+
+	for len(q) > 0 {
+		node = q[0]
+		q = q[1:]
+		if node.Left != nil {
+			q = append(q, node.Left)
+		}
+
+		if node.Right != nil {
+			q = append(q, node.Right)
+		}
+
+		if (node.Right != nil && node.Left == nil) || (node.Right == nil && node.Left != nil) {
+			return false
+		}
+	}
+
+	return true
+}
+
+func IntToBool(x int) bool {
+	if x == 0 {
+		return false
+	}
+	return true
+}
+
+func BoolToInt(boolean bool) int {
+	if boolean {
+		return 1
+	}
+	return 0
+}
+
+func IsBalanced(root *Node, height *int) int {
+	leftHeight, rightHeight := 0, 0
+
+	left, right := 0, 0
+
+	if root == nil {
+		*height = 0
+		return 1
+	}
+
+	left = IsBalanced(root.Left, &leftHeight)
+	right = IsBalanced(root.Right, &rightHeight)
+
+	if leftHeight > rightHeight {
+		*height = leftHeight
+	} else {
+		*height = rightHeight
+	}
+	*height += 1
+
+	if math.Abs(float64(leftHeight)-float64(rightHeight)) >= 2 {
+		return 0
+	}
+
+	return BoolToInt(IntToBool(left) && IntToBool(right))
+}
+
 func main() {
 	tree := BinaryTree{Root: &Node{Value: 1}}
 	node2 := Node{Value: 2}
@@ -264,4 +387,7 @@ func main() {
 	// Preorder(tree.Root)
 	// Inorder(tree.Root)
 	// Levelorder(tree.Root)
+	// height := 0
+	// fmt.Println(IsBalanced(tree.Root, &height))
+
 }
