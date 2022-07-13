@@ -1,4 +1,4 @@
-package main
+package bTree
 
 import (
 	"fmt"
@@ -367,27 +367,36 @@ func IsBalanced(root *Node, height *int) int {
 	return BoolToInt(IntToBool(left) && IntToBool(right))
 }
 
-func main() {
-	tree := BinaryTree{Root: &Node{Value: 1}}
-	node2 := Node{Value: 2}
-	node3 := Node{Value: 3}
-	node4 := Node{Value: 4}
-	node5 := Node{Value: 5}
-	node6 := Node{Value: 6}
-	node7 := Node{Value: 7}
-	tree.Root.Left = &node2
-	tree.Root.Right = &node3
-	node2.Left = &node4
-	node2.Right = &node5
-	node3.Left = &node6
-	node3.Right = &node7
-	//		 1
-	//   2      3
-	// 4   5  6   7
-	// Preorder(tree.Root)
-	// Inorder(tree.Root)
-	// Levelorder(tree.Root)
-	// height := 0
-	// fmt.Println(IsBalanced(tree.Root, &height))
+func TreeFromInorderAndPreorderTraversals(inorder, preorder []interface{}, start, end int, hashmap *map[interface{}]int, preIndex *int) *Node {
+	if start > end {
+		return nil
+	}
 
+	newNode := &Node{Value: preorder[*preIndex]}
+	*(preIndex)++
+
+	if start == end {
+		return newNode
+	}
+
+	inIndex := (*hashmap)[newNode.Value]
+
+	newNode.Left = TreeFromInorderAndPreorderTraversals(inorder, preorder, start, inIndex-1, hashmap, preIndex)
+	newNode.Right = TreeFromInorderAndPreorderTraversals(inorder, preorder, inIndex+1, end, hashmap, preIndex)
+
+	return newNode
+}
+
+func BuildTreeFromInorderAndPreorderTraversalsWrap(inorder, preorder []interface{}, start, end int) *Node {
+	hashmap := make(map[interface{}]int)
+
+	for i := 0; i < len(inorder); i++ {
+		hashmap[inorder[i]] = i
+	}
+
+	fmt.Printf("hashmap: %v\n", hashmap)
+
+	var preIndex int = 0
+
+	return TreeFromInorderAndPreorderTraversals(inorder, preorder, start, end, &hashmap, &preIndex)
 }
