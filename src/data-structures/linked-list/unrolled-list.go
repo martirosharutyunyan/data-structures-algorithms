@@ -1,22 +1,22 @@
-package unrolledList
+package linkedList
 
-type Node struct {
-	Next   *Node
+type UnrolledNode struct {
+	Next   *UnrolledNode
 	Values []interface{}
 }
 
 type UnrolledList struct {
-	Head *Node
+	Head *UnrolledNode
 }
 
 func (list *UnrolledList) Push(values []interface{}) {
-	newNode := &Node{Values: values}
+	newNode := &UnrolledNode{Values: values}
 	newNode.Next = list.Head
 	list.Head = newNode
 }
 
 func (list *UnrolledList) Append(values []interface{}) {
-	newNode := &Node{Values: values}
+	newNode := &UnrolledNode{Values: values}
 
 	if list.Head == nil {
 		list.Head = newNode
@@ -53,7 +53,7 @@ func (list *UnrolledList) Shift() {
 	list.Head = list.Head.Next
 }
 
-func (list *UnrolledList) Search(value interface{}) (*Node, int, int) {
+func (list *UnrolledList) Search(value interface{}) (*UnrolledNode, int, int) {
 	current := list.Head
 
 	for current != nil {

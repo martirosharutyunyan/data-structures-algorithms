@@ -1,13 +1,8 @@
-package cycleList
+package linkedList
 
 import (
 	"fmt"
 )
-
-type Node struct {
-	Value interface{}
-	Next  *Node
-}
 
 type CycleList struct {
 	Head *Node

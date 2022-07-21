@@ -5,8 +5,8 @@ import (
 )
 
 type Node struct {
-	Value interface{}
-	Next  *Node
+	Prev, Next *Node
+	Value      interface{}
 }
 
 type SinglyList struct {

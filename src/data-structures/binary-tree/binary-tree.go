@@ -30,24 +30,28 @@ func PreorderRecursive(root *Node) {
 	PreorderRecursive(root.Right)
 }
 
-func PreorderIterative(root *Node) {
+func PreorderIterative(root *Node) []interface{} {
+	preorder := []interface{}{}
+	current := root
 	if root == nil {
-		return
+		return preorder
 	}
 
 	stack := []*Node{}
 
-	for root != nil || len(stack) != 0 {
-		if root != nil {
-			fmt.Println(root.Value)
-			stack = append(stack, root)
-			root = root.Left
+	for current != nil || len(stack) != 0 {
+		if current != nil {
+			preorder = append(preorder, current.Value)
+			stack = append(stack, current)
+			current = current.Left
 		} else {
-			root = stack[len(stack)-1]
+			current = stack[len(stack)-1]
 			stack = stack[:len(stack)-1]
-			root = root.Right
+			current = current.Right
 		}
 	}
+
+	return preorder
 }
 
 func InorderRecursive(root *Node) {
@@ -60,9 +64,11 @@ func InorderRecursive(root *Node) {
 	InorderRecursive(root.Right)
 }
 
-func InorderIterative(root *Node) {
+func InorderIterative(root *Node) []interface{} {
+	inorder := []interface{}{}
+
 	if root == nil {
-		return
+		return inorder
 	}
 
 	stack := []*Node{}
@@ -78,9 +84,11 @@ func InorderIterative(root *Node) {
 		current = stack[len(stack)-1]
 		stack = stack[:len(stack)-1]
 
-		fmt.Println(current.Value)
+		inorder = append(inorder, current.Value)
 		current = current.Right
 	}
+
+	return inorder
 }
 
 func PostorderRecursive(root *Node) {
@@ -94,11 +102,13 @@ func PostorderRecursive(root *Node) {
 	fmt.Println(root.Value)
 }
 
-func PostOrderIterative(root *Node) {
+func PostOrderIterative(root *Node) []interface{} {
+	postorder := []interface{}{}
+
 	firstStack, secondStack := []*Node{}, []*Node{}
 
 	if root == nil {
-		return
+		return postorder
 	}
 	firstStack = append(firstStack, root)
 
@@ -120,18 +130,22 @@ func PostOrderIterative(root *Node) {
 	for len(secondStack) > 0 {
 		temp = secondStack[len(secondStack)-1]
 		secondStack = secondStack[:len(secondStack)-1]
-		fmt.Println(temp)
+		postorder = append(postorder, temp.Value)
 	}
+
+	return postorder
 }
 
-func Levelorder(root *Node) {
+func Levelorder(root *Node) []interface{} {
+	levelorder := []interface{}{}
+
 	q := []*Node{root}
 	var node *Node
 
 	for len(q) > 0 {
 		node = q[0]
 		q = q[1:]
-		fmt.Println(node.Value)
+		levelorder = append(levelorder, node.Value)
 		if node.Left != nil {
 			q = append(q, node.Left)
 		}
@@ -139,6 +153,8 @@ func Levelorder(root *Node) {
 			q = append(q, node.Right)
 		}
 	}
+
+	return levelorder
 }
 
 func Search(root *Node, data interface{}) int {

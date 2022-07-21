@@ -1,11 +1,6 @@
-package linkedlist
+package linkedList
 
 import "fmt"
-
-type Node struct {
-	Prev, Next *Node
-	Val        interface{}
-}
 
 type Doubly struct {
 	Head *Node
@@ -15,8 +10,8 @@ func NewDoubly() *Doubly {
 	return &Doubly{nil}
 }
 
-func NewNode(val interface{}) *Node {
-	return &Node{Val: val, Prev: nil, Next: nil}
+func NewNode(value interface{}) *Node {
+	return &Node{Value: value, Prev: nil, Next: nil}
 }
 
 func (ll *Doubly) AddAtBeg(val interface{}) {
@@ -57,7 +52,7 @@ func (ll *Doubly) DelAtBeg() interface{} {
 	if ll.Head != nil {
 		ll.Head.Prev = nil
 	}
-	return cur.Val
+	return cur.Value
 }
 
 func (ll *Doubly) DelAtEnd() interface{} {
@@ -73,7 +68,7 @@ func (ll *Doubly) DelAtEnd() interface{} {
 	for ; cur.Next.Next != nil; cur = cur.Next {
 	}
 
-	retval := cur.Next.Val
+	retval := cur.Next.Value
 	cur.Next = nil
 	return retval
 }
@@ -105,7 +100,7 @@ func (ll *Doubly) Reverse() {
 
 func (ll *Doubly) Display() {
 	for cur := ll.Head; cur != nil; cur = cur.Next {
-		fmt.Print(cur.Val, " ")
+		fmt.Print(cur.Value, " ")
 	}
 
 	fmt.Print("\n")
@@ -120,7 +115,7 @@ func (ll *Doubly) DisplayReverse() {
 	}
 
 	for ; cur != nil; cur = cur.Prev {
-		fmt.Print(cur.Val, " ")
+		fmt.Print(cur.Value, " ")
 	}
 
 	fmt.Print("\n")
