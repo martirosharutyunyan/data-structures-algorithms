@@ -1,12 +1,12 @@
 package main
 
 import (
+	"dsa/src/data-structures/binary-tree"
 	"fmt"
-	"geeksforgeeks/src/data-structures/binary-tree"
 )
 
 func main() {
-	bst := &bTree.BinaryTree{}
+	bst := &bTree.BinaryTree{Root: &bTree.Node{Value: 10}}
 	// bst.InsertIterative(7)
 	// bst.InsertIterative(10)
 	// bst.InsertIterative(3)
@@ -25,5 +25,6 @@ func main() {
 	bTree.Insert(bst.Root, 3)
 	bTree.Insert(bst.Root, 4)
 	bTree.Insert(bst.Root, 5)
-	fmt.Println(bTree.Levelorder(bst.Root)...)
+	BST := bTree.BTreeToBST(bst.Root)
+	fmt.Println(bTree.PreorderIterative(BST)...)
 }
