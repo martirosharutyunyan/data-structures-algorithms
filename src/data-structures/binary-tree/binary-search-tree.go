@@ -220,14 +220,44 @@ func ArrayToBST(array []interface{}, root *Node, index *int) *Node {
 	return root
 }
 
-func BTreeToBST(root *Node) *Node {
+func ArraySortInPreorder(array []interface{}) []interface{} {
+	result := []interface{}{}
+	queue := [][]interface{}{array}
+
+	for len(queue) > 0 {
+		partition := queue[0]
+		queue = queue[1:]
+		mid := (len(partition) - 1) / 2
+		result = append(result, partition[mid])
+		leftPartition := partition[:mid]
+		rightPartition := partition[:mid+1]
+		if len(leftPartition) > 0 {
+			queue = append(queue, leftPartition)
+		}
+
+		if len(rightPartition) > 0 {
+			queue = append(queue, rightPartition)
+		}
+	}
+
+	return result
+}
+
+func BTreeToBST(root *Node) *BST {
 	temp := InorderIterative(root)
 
 	sortedArray := mergeSort.MergeIterative(ToIntArray(temp))
 
-	index := 0
-
-	bst := ArrayToBST(ToInterfaceArray(sortedArray), root, &index)
+	bst := &BST{}
+	for _, value := range sortedArray {
+		bst.InsertIterative(value)
+	}
 
 	return bst
+}
+
+func KthLargestElementBST(root *Node, k int) interface{} {
+	temp := InorderIterative(root)
+
+	return temp[k]
 }

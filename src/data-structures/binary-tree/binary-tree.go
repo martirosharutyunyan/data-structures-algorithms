@@ -410,8 +410,6 @@ func BuildTreeFromInorderAndPreorderTraversalsWrap(inorder, preorder []interface
 		hashmap[inorder[i]] = i
 	}
 
-	fmt.Printf("hashmap: %v\n", hashmap)
-
 	var preIndex int = 0
 
 	return TreeFromInorderAndPreorderTraversals(inorder, preorder, start, end, &hashmap, &preIndex)
