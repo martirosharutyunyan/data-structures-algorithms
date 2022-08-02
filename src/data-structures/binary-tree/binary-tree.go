@@ -10,9 +10,8 @@ type BinaryTree struct {
 }
 
 type Node struct {
-	Value interface{}
-	Left  *Node
-	Right *Node
+	Value       interface{}
+	Left, Right *Node
 }
 
 type Height struct {
@@ -207,7 +206,7 @@ func Insert(temp *Node, value interface{}) {
 	}
 }
 
-func DeleteDepest(root *Node, delNode *Node) {
+func DeleteDeepest(root *Node, delNode *Node) {
 	q := []*Node{root}
 
 	var temp *Node
@@ -276,7 +275,7 @@ func Delete(root *Node, value interface{}) {
 
 	if keyNode != nil {
 		value := temp.Value
-		DeleteDepest(root, temp)
+		DeleteDeepest(root, temp)
 		keyNode.Value = value
 	}
 }

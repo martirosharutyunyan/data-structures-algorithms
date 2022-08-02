@@ -158,7 +158,7 @@ func DeleteNodeRecursive(root *Node, value interface{}) *Node {
 	return root
 }
 
-func ConstuctBSTFromPreorderUtil(preorder []interface{}, preIndex *int, value interface{}, min, max, size int) *Node {
+func ConstructBSTFromPreorderUtil(preorder []interface{}, preIndex *int, value interface{}, min, max, size int) *Node {
 	if *preIndex >= size {
 		return nil
 	}
@@ -170,21 +170,21 @@ func ConstuctBSTFromPreorderUtil(preorder []interface{}, preIndex *int, value in
 		*preIndex++
 
 		if *preIndex < size {
-			root.Left = ConstuctBSTFromPreorderUtil(preorder, preIndex, preorder[*preIndex], min, value.(int), size)
+			root.Left = ConstructBSTFromPreorderUtil(preorder, preIndex, preorder[*preIndex], min, value.(int), size)
 		}
 
 		if *preIndex < size {
-			root.Right = ConstuctBSTFromPreorderUtil(preorder, preIndex, preorder[*preIndex], value.(int), max, size)
+			root.Right = ConstructBSTFromPreorderUtil(preorder, preIndex, preorder[*preIndex], value.(int), max, size)
 		}
 	}
 
 	return root
 }
 
-func ConstuctBSTFromPreorder(preorder []interface{}) *Node {
+func ConstructBSTFromPreorder(preorder []interface{}) *Node {
 	preIndex := 0
 
-	return ConstuctBSTFromPreorderUtil(preorder, &preIndex, preorder[0], 0, 1000, len(preorder))
+	return ConstructBSTFromPreorderUtil(preorder, &preIndex, preorder[0], 0, 1000, len(preorder))
 }
 
 func ToIntArray(array []interface{}) []int {
