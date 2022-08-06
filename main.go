@@ -33,6 +33,8 @@ func main() {
 	node = bTree.InsertAVL(node, 1)
 	node = bTree.InsertAVL(node, 2)
 	node = bTree.InsertAVL(node, 3)
+	node = bTree.InsertAVL(node, 4)
+	node = bTree.InsertAVL(node, 5)
 	fmt.Println(bTree.AVLInorderIterative(node))
 	fmt.Printf("%+v", node)
 }

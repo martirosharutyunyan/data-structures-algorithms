@@ -91,6 +91,75 @@ func InsertAVL(node *AVLNode, value int) *AVLNode {
 	return node
 }
 
+func AVLDeleteNode(node *AVLNode, value int) *AVLNode {
+	if node == nil {
+		return node
+	}
+
+	if value < node.Value {
+		node.Left = AVLDeleteNode(node.Left, value)
+	} else if value < node.Value {
+		node.Right = AVLDeleteNode(node.Right, value)
+	} else {
+		if node.Left == nil || node.Right == nil {
+			var temp *AVLNode
+			if node.Left == nil {
+				temp = node.Left
+			} else {
+				temp = node.Right
+			}
+
+			if temp == nil {
+				temp = node
+				node = nil
+			} else {
+				*node = *temp
+			}
+		} else {
+			temp := AVLMinNodeValue(node.Right)
+			node.Value = temp.Value
+			node.Right = AVLDeleteNode(node.Right, temp.Value)
+		}
+	}
+
+	if node == nil {
+		return node
+	}
+
+	node.Height = 1 + Max(GetAVLNodeHeight(node.Left), GetAVLNodeHeight(node.Right))
+
+	balance := GetBalance(node)
+
+	if balance > 1 && value < node.Left.Value {
+		return RightRotate(node)
+	}
+
+	if balance < -1 && value > node.Right.Value {
+		return LeftRotate(node)
+	}
+
+	if balance > 1 && value > node.Left.Value {
+		node.Left = LeftRotate(node.Left)
+		return RightRotate(node)
+	}
+
+	if balance < -1 && value < node.Right.Value {
+		node.Right = RightRotate(node.Right)
+		return LeftRotate(node)
+	}
+
+	return node
+}
+
+func AVLMinNodeValue(node *AVLNode) *AVLNode {
+	current := node
+	for current.Left != nil {
+		current = current.Left
+	}
+
+	return current
+}
+
 func AVLInorderIterative(root *AVLNode) []int {
 	inorder := []int{}
 
