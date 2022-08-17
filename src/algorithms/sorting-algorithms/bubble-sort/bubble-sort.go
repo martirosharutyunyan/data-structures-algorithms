@@ -10,7 +10,7 @@ func swap[T Type](firstPointer *T, secondPointer *T) {
 	*secondPointer = temp
 }
 
-func bubbleSort[T Type](array []T) {
+func BubbleSort[T Type](array []T) {
 	var n int = len(array)
 
 	for i := 0; i < n-1; i++ {

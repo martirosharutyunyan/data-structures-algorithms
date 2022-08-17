@@ -1,6 +1,8 @@
 package bucketSort
 
-func buckerSort(array []float64) {
+import insertionSort "dsa/src/algorithms/sorting-algorithms/insertion-sort"
+
+func BuckerSort(array []float64) {
 	var buckets = make([][]float64, len(array))
 
 	for i := 0; i < len(array); i++ {
@@ -8,7 +10,7 @@ func buckerSort(array []float64) {
 	}
 
 	for i := 0; i < len(array); i++ {
-		insertionSort(buckets[int(array[i]*float64(len(array)))])
+		insertionSort.InsertionSort(buckets[int(array[i]*float64(len(array)))])
 	}
 
 	index := 0
@@ -17,18 +19,5 @@ func buckerSort(array []float64) {
 			array[index] = buckets[i][j]
 			index++
 		}
-	}
-}
-
-func insertionSort(array []float64) {
-	for i := 1; i < len(array); i++ {
-		j := i - 1
-		key := array[i]
-
-		for j >= 0 && array[j] >= key {
-			array[j+1] = array[j]
-			j--
-		}
-		array[j+1] = key
 	}
 }

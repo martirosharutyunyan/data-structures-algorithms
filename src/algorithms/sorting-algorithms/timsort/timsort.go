@@ -66,7 +66,7 @@ func merge[T Type](array []T, left int, middle int, right int) {
 
 }
 
-func timSort[T Type](array []T) {
+func TimSort[T Type](array []T) {
 	n := len(array)
 	minMerge := 32
 	for i := 0; i < n; i += min {

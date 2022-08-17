@@ -4,7 +4,7 @@ type Type interface {
 	int | int32 | int64 | string
 }
 
-func quickSort[T Type](array []T) []T {
+func QuickSort[T Type](array []T) []T {
 	if len(array) < 2 {
 		return array
 	}
@@ -21,8 +21,8 @@ func quickSort[T Type](array []T) []T {
 		}
 	}
 
-	var sortedLeftItems = quickSort(leftItems)
-	var sortedRightItems = quickSort(rightItems)
+	var sortedLeftItems = QuickSort(leftItems)
+	var sortedRightItems = QuickSort(rightItems)
 
 	var leftItemsWithPivot = append(sortedLeftItems, pivot)
 	var sortedArray = append(leftItemsWithPivot, sortedRightItems...)

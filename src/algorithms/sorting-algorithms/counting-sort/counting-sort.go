@@ -2,7 +2,7 @@ package countingSort
 
 var diapason = 10
 
-func countingSort(array []int) []int {
+func CountingSort(array []int) []int {
 	var countArray = make([]int, diapason)
 	var output = make([]int, len(array))
 

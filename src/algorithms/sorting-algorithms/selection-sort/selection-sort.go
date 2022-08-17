@@ -10,7 +10,7 @@ func swap[T Type](firstPointer *T, secondPointer *T) {
 	*secondPointer = temp
 }
 
-func selectionSort[T Type](array []T) {
+func SelectionSort[T Type](array []T) {
 	var n int = len(array)
 	for i := 0; i < n; i++ {
 		min := i

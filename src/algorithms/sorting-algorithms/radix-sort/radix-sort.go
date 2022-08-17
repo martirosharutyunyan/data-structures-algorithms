@@ -1,6 +1,6 @@
 package radixSort
 
-func getMax(array []int) int {
+func GetMax(array []int) int {
 	var max = array[0]
 
 	for i := 1; i < len(array); i++ {
@@ -12,7 +12,7 @@ func getMax(array []int) int {
 	return max
 }
 
-func countingSort(array []int, exp int) []int {
+func CountingSort(array []int, exp int) []int {
 	var countArray = make([]int, 10)
 	var output = make([]int, len(array))
 	for i := 0; i < len(array); i++ {
@@ -31,11 +31,11 @@ func countingSort(array []int, exp int) []int {
 	return output
 }
 
-func radixSort(array []int) []int {
-	var max = getMax(array)
+func RadixSort(array []int) []int {
+	var max = GetMax(array)
 
 	for i := 1; max/i > 0; i *= 10 {
-		array = countingSort(array, i)
+		array = CountingSort(array, i)
 	}
 
 	return array
