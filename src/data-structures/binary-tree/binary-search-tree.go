@@ -1,6 +1,6 @@
 package bTree
 
-import "dsa/src/algorithms/sorting-algorithms/merge-sort"
+import mergeSort "DSA/src/algorithms/sorting-algorithms/merge-sort"
 
 type BST struct {
 	Root *Node

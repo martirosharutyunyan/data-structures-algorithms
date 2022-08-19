@@ -1,3 +1,3 @@
-module dsa
+module DSA
 
-go 1.18
+go 1.19
