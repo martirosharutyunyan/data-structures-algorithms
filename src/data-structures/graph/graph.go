@@ -1,6 +1,8 @@
 package graph
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type Graph struct {
 	Vertexes map[int][]int
@@ -128,6 +130,24 @@ func (graph *Graph) DFS(source int) {
 	}
 }
 
-func (graph *Graph) AddVertex(source, dst int) {
-	graph.Vertexes[source] = append(graph.Vertexes[source], dst)
+func (graph *Graph) PossiblePaths(start, end int) [][]int {
+	results := [][]int{}
+	stack := []int{start}
+	temp := []int{}
+	for len(stack) != 0 {
+		front := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		temp = append(temp, front)
+		if temp[len(temp)-1] == end {
+			results = append(results, temp)
+			temp = []int{start}
+		}
+		stack = append(stack, graph.Vertexes[front]...)
+	}
+
+	return results
+}
+
+func (graph *Graph) AddVertex(source int, dst []int) {
+	graph.Vertexes[source] = append(graph.Vertexes[source], dst...)
 }

@@ -6,7 +6,7 @@ type BST struct {
 	Root *Node
 }
 
-func InsertRecursive(node *Node, value interface{}) *Node {
+func InsertRecursive(node *Node, value any) *Node {
 	if node == nil {
 		return &Node{Value: value}
 	}
@@ -20,7 +20,7 @@ func InsertRecursive(node *Node, value interface{}) *Node {
 	return node
 }
 
-func (bst *BST) InsertIterative(value interface{}) {
+func (bst *BST) InsertIterative(value any) {
 	newNode := &Node{Value: value}
 
 	if bst.Root == nil {
@@ -47,7 +47,7 @@ func (bst *BST) InsertIterative(value interface{}) {
 	}
 }
 
-func (root *Node) MinValue() interface{} {
+func (root *Node) MinValue() any {
 	minV := root.Value
 	temp := root
 	for temp.Left != nil {
@@ -58,7 +58,7 @@ func (root *Node) MinValue() interface{} {
 	return minV
 }
 
-func (root *Node) MaxValue() interface{} {
+func (root *Node) MaxValue() any {
 	maxValue := root.Value
 	temp := root
 
@@ -70,7 +70,7 @@ func (root *Node) MaxValue() interface{} {
 	return maxValue
 }
 
-func (root *Node) DeleteNodeIterative(value interface{}) *Node {
+func (root *Node) DeleteNodeIterative(value any) *Node {
 	if root == nil {
 		return root
 	}
@@ -130,7 +130,7 @@ func (root *Node) DeleteNodeIterative(value interface{}) *Node {
 	return root
 }
 
-func DeleteNodeRecursive(root *Node, value interface{}) *Node {
+func DeleteNodeRecursive(root *Node, value any) *Node {
 	if root == nil {
 		return root
 	}
@@ -158,7 +158,7 @@ func DeleteNodeRecursive(root *Node, value interface{}) *Node {
 	return root
 }
 
-func ConstructBSTFromPreorderUtil(preorder []interface{}, preIndex *int, value interface{}, min, max, size int) *Node {
+func ConstructBSTFromPreorderUtil(preorder []any, preIndex *int, value any, min, max, size int) *Node {
 	if *preIndex >= size {
 		return nil
 	}
@@ -181,13 +181,13 @@ func ConstructBSTFromPreorderUtil(preorder []interface{}, preIndex *int, value i
 	return root
 }
 
-func ConstructBSTFromPreorder(preorder []interface{}) *Node {
+func ConstructBSTFromPreorder(preorder []any) *Node {
 	preIndex := 0
 
 	return ConstructBSTFromPreorderUtil(preorder, &preIndex, preorder[0], 0, 1000, len(preorder))
 }
 
-func ToIntArray(array []interface{}) []int {
+func ToIntArray(array []any) []int {
 	temp := []int{}
 	for _, value := range array {
 		temp = append(temp, value.(int))
@@ -196,8 +196,8 @@ func ToIntArray(array []interface{}) []int {
 	return temp
 }
 
-func ToInterfaceArray(array []int) []interface{} {
-	temp := []interface{}{}
+func ToInterfaceArray(array []int) []any {
+	temp := []any{}
 
 	for _, value := range array {
 		temp = append(temp, value)
@@ -206,7 +206,7 @@ func ToInterfaceArray(array []int) []interface{} {
 	return temp
 }
 
-func ArrayToBST(array []interface{}, root *Node, index *int) *Node {
+func ArrayToBST(array []any, root *Node, index *int) *Node {
 	if root == nil {
 		return root
 	}
@@ -220,9 +220,9 @@ func ArrayToBST(array []interface{}, root *Node, index *int) *Node {
 	return root
 }
 
-func ArraySortInPreorder(array []interface{}) []interface{} {
-	result := []interface{}{}
-	queue := [][]interface{}{array}
+func ArraySortInPreorder(array []any) []any {
+	result := []any{}
+	queue := [][]any{array}
 
 	for len(queue) > 0 {
 		partition := queue[0]
@@ -256,7 +256,7 @@ func BTreeToBST(root *Node) *BST {
 	return bst
 }
 
-func KthLargestElementBST(root *Node, k int) interface{} {
+func KthLargestElementBST(root *Node, k int) any {
 	temp := InorderIterative(root)
 
 	return temp[k]

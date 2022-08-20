@@ -2,20 +2,20 @@ package linkedList
 
 type UnrolledNode struct {
 	Next   *UnrolledNode
-	Values []interface{}
+	Values []any
 }
 
 type UnrolledList struct {
 	Head *UnrolledNode
 }
 
-func (list *UnrolledList) Push(values []interface{}) {
+func (list *UnrolledList) Push(values []any) {
 	newNode := &UnrolledNode{Values: values}
 	newNode.Next = list.Head
 	list.Head = newNode
 }
 
-func (list *UnrolledList) Append(values []interface{}) {
+func (list *UnrolledList) Append(values []any) {
 	newNode := &UnrolledNode{Values: values}
 
 	if list.Head == nil {
@@ -53,7 +53,7 @@ func (list *UnrolledList) Shift() {
 	list.Head = list.Head.Next
 }
 
-func (list *UnrolledList) Search(value interface{}) (*UnrolledNode, int, int) {
+func (list *UnrolledList) Search(value any) (*UnrolledNode, int, int) {
 	current := list.Head
 
 	for current != nil {

@@ -37,7 +37,7 @@ type RbKey interface {
 // rbNode structure used for storing key and value pairs
 type rbNode struct {
 	key         RbKey
-	value       interface{}
+	value       any
 	color       byte
 	left, right *rbNode
 }
@@ -52,10 +52,10 @@ type RbTree struct {
 }
 
 // DeleteEvent function used on Insert or Delete operations
-type DeleteEvent func(key RbKey, oldValue interface{}) (updatedValue interface{})
+type DeleteEvent func(key RbKey, oldValue any) (updatedValue any)
 
 // InsertEvent function used on Insert or Delete operations
-type InsertEvent func(key RbKey, oldValue interface{}, newValue interface{}) (updatedValue interface{})
+type InsertEvent func(key RbKey, oldValue any, newValue any) (updatedValue any)
 
 // NewRbTree creates a new RbTree and returns its address
 func NewRbTree() *RbTree {
@@ -71,7 +71,7 @@ func NewRbTreeWithEvents(onInsert InsertEvent, onDelete DeleteEvent) *RbTree {
 }
 
 // newRbNode creates a new rbNode and returns its address
-func newRbNode(key RbKey, value interface{}) *rbNode {
+func newRbNode(key RbKey, value any) *rbNode {
 	result := &rbNode{
 		key:   key,
 		value: value,
@@ -251,7 +251,7 @@ func (tree *RbTree) IsEmpty() bool {
 }
 
 // Min returns the smallest key in the tree.
-func (tree *RbTree) Min() (RbKey, interface{}) {
+func (tree *RbTree) Min() (RbKey, any) {
 	if tree.root != nil {
 		result := min(tree.root)
 		return result.key, result.value
@@ -260,7 +260,7 @@ func (tree *RbTree) Min() (RbKey, interface{}) {
 }
 
 // Max returns the largest key in the tree.
-func (tree *RbTree) Max() (RbKey, interface{}) {
+func (tree *RbTree) Max() (RbKey, any) {
 	if tree.root != nil {
 		result := max(tree.root)
 		return result.key, result.value
@@ -269,7 +269,7 @@ func (tree *RbTree) Max() (RbKey, interface{}) {
 }
 
 // Floor returns the largest key in the tree less than or equal to key
-func (tree *RbTree) Floor(key RbKey) (RbKey, interface{}) {
+func (tree *RbTree) Floor(key RbKey) (RbKey, any) {
 	if key != nil && tree.root != nil {
 		node := floor(tree.root, key)
 		if node == nil {
@@ -281,7 +281,7 @@ func (tree *RbTree) Floor(key RbKey) (RbKey, interface{}) {
 }
 
 // Ceiling returns the smallest key in the tree greater than or equal to key
-func (tree *RbTree) Ceiling(key RbKey) (RbKey, interface{}) {
+func (tree *RbTree) Ceiling(key RbKey) (RbKey, any) {
 	if key != nil && tree.root != nil {
 		node := ceiling(tree.root, key)
 		if node == nil {
@@ -294,7 +294,7 @@ func (tree *RbTree) Ceiling(key RbKey) (RbKey, interface{}) {
 
 // Get returns the stored value if key found and 'true',
 // otherwise returns 'false' with second return param if key not found
-func (tree *RbTree) Get(key RbKey) (interface{}, bool) {
+func (tree *RbTree) Get(key RbKey) (any, bool) {
 	if key != nil && tree.root != nil {
 		node := tree.find(key)
 		if node != nil {
@@ -325,7 +325,7 @@ func (tree *RbTree) Exists(key RbKey) bool {
 }
 
 // Insert inserts the given key and value into the tree
-func (tree *RbTree) Insert(key RbKey, value interface{}) {
+func (tree *RbTree) Insert(key RbKey, value any) {
 	if key != nil {
 		tree.version++
 		tree.root = tree.insertNode(tree.root, key, value)
@@ -335,7 +335,7 @@ func (tree *RbTree) Insert(key RbKey, value interface{}) {
 }
 
 // insertNode adds the given key and value into the node
-func (tree *RbTree) insertNode(node *rbNode, key RbKey, value interface{}) *rbNode {
+func (tree *RbTree) insertNode(node *rbNode, key RbKey, value any) *rbNode {
 	if node == nil {
 		tree.count++
 		return newRbNode(key, value)

@@ -10,7 +10,7 @@ type BinaryTree struct {
 }
 
 type Node struct {
-	Value       interface{}
+	Value       any
 	Left, Right *Node
 }
 
@@ -29,8 +29,8 @@ func PreorderRecursive(root *Node) {
 	PreorderRecursive(root.Right)
 }
 
-func PreorderIterative(root *Node) []interface{} {
-	preorder := []interface{}{}
+func PreorderIterative(root *Node) []any {
+	preorder := []any{}
 	current := root
 	if root == nil {
 		return preorder
@@ -63,8 +63,8 @@ func InorderRecursive(root *Node) {
 	InorderRecursive(root.Right)
 }
 
-func InorderIterative(root *Node) []interface{} {
-	inorder := []interface{}{}
+func InorderIterative(root *Node) []any {
+	inorder := []any{}
 
 	if root == nil {
 		return inorder
@@ -101,8 +101,8 @@ func PostorderRecursive(root *Node) {
 	fmt.Println(root.Value)
 }
 
-func PostOrderIterative(root *Node) []interface{} {
-	postorder := []interface{}{}
+func PostOrderIterative(root *Node) []any {
+	postorder := []any{}
 
 	firstStack, secondStack := []*Node{}, []*Node{}
 
@@ -135,8 +135,8 @@ func PostOrderIterative(root *Node) []interface{} {
 	return postorder
 }
 
-func Levelorder(root *Node) []interface{} {
-	levelorder := []interface{}{}
+func Levelorder(root *Node) []any {
+	levelorder := []any{}
 
 	q := []*Node{root}
 	var node *Node
@@ -156,7 +156,7 @@ func Levelorder(root *Node) []interface{} {
 	return levelorder
 }
 
-func Search(root *Node, data interface{}) int {
+func Search(root *Node, data any) int {
 	q := []*Node{root}
 	var node *Node
 
@@ -178,7 +178,7 @@ func Search(root *Node, data interface{}) int {
 	return -1
 }
 
-func Insert(temp *Node, value interface{}) {
+func Insert(temp *Node, value any) {
 	if temp == nil {
 		temp = &Node{Value: value}
 		return
@@ -240,7 +240,7 @@ func DeleteDeepest(root *Node, delNode *Node) {
 	}
 }
 
-func Delete(root *Node, value interface{}) {
+func Delete(root *Node, value any) {
 	if root == nil {
 		return
 	}
@@ -382,7 +382,7 @@ func IsBalanced(root *Node, height *int) int {
 	return BoolToInt(IntToBool(left) && IntToBool(right))
 }
 
-func TreeFromInorderAndPreorderTraversals(inorder, preorder []interface{}, start, end int, hashmap *map[interface{}]int, preIndex *int) *Node {
+func TreeFromInorderAndPreorderTraversals(inorder, preorder []any, start, end int, hashmap *map[any]int, preIndex *int) *Node {
 	if start > end {
 		return nil
 	}
@@ -402,8 +402,8 @@ func TreeFromInorderAndPreorderTraversals(inorder, preorder []interface{}, start
 	return newNode
 }
 
-func BuildTreeFromInorderAndPreorderTraversalsWrap(inorder, preorder []interface{}, start, end int) *Node {
-	hashmap := make(map[interface{}]int)
+func BuildTreeFromInorderAndPreorderTraversalsWrap(inorder, preorder []any, start, end int) *Node {
+	hashmap := make(map[any]int)
 
 	for i := 0; i < len(inorder); i++ {
 		hashmap[inorder[i]] = i

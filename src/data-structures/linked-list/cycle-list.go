@@ -9,7 +9,7 @@ type CycleList struct {
 	Tail *Node
 }
 
-func (list *CycleList) Push(value interface{}) {
+func (list *CycleList) Push(value any) {
 	newNode := &Node{Value: value}
 	if list.Tail == nil {
 		list.Tail = newNode
@@ -26,7 +26,7 @@ func (list *CycleList) Push(value interface{}) {
 	list.Tail.Next = list.Head
 }
 
-func (list *CycleList) Append(value interface{}) {
+func (list *CycleList) Append(value any) {
 	newNode := &Node{Value: value}
 
 	if list.Head == nil {
@@ -102,7 +102,7 @@ func (list *CycleList) Count() int {
 	return length
 }
 
-func (list *CycleList) NthNode(n int) interface{} {
+func (list *CycleList) NthNode(n int) any {
 	current := list.Head
 
 	for i := 0; i <= n; i++ {

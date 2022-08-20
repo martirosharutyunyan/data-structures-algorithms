@@ -10,11 +10,11 @@ func NewDoubly() *Doubly {
 	return &Doubly{nil}
 }
 
-func NewNode(value interface{}) *Node {
+func NewNode(value any) *Node {
 	return &Node{Value: value, Prev: nil, Next: nil}
 }
 
-func (ll *Doubly) AddAtBeg(val interface{}) {
+func (ll *Doubly) AddAtBeg(val any) {
 	n := NewNode(val)
 	n.Next = ll.Head
 
@@ -26,7 +26,7 @@ func (ll *Doubly) AddAtBeg(val interface{}) {
 
 }
 
-func (ll *Doubly) AddAtEnd(val interface{}) {
+func (ll *Doubly) AddAtEnd(val any) {
 	n := NewNode(val)
 
 	if ll.Head == nil {
@@ -41,7 +41,7 @@ func (ll *Doubly) AddAtEnd(val interface{}) {
 	n.Prev = cur
 }
 
-func (ll *Doubly) DelAtBeg() interface{} {
+func (ll *Doubly) DelAtBeg() any {
 	if ll.Head == nil {
 		return -1
 	}
@@ -55,7 +55,7 @@ func (ll *Doubly) DelAtBeg() interface{} {
 	return cur.Value
 }
 
-func (ll *Doubly) DelAtEnd() interface{} {
+func (ll *Doubly) DelAtEnd() any {
 	if ll.Head == nil {
 		return -1
 	}
@@ -73,7 +73,7 @@ func (ll *Doubly) DelAtEnd() interface{} {
 	return retval
 }
 
-func (ll *Doubly) Count() interface{} {
+func (ll *Doubly) Count() any {
 	var ctr int = 0
 
 	for cur := ll.Head; cur != nil; cur = cur.Next {

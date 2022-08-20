@@ -6,7 +6,7 @@ import (
 
 type Node struct {
 	Prev, Next *Node
-	Value      interface{}
+	Value      any
 }
 
 type SinglyList struct {
@@ -14,7 +14,7 @@ type SinglyList struct {
 	Tail *Node
 }
 
-func (list *SinglyList) Push(value interface{}) {
+func (list *SinglyList) Push(value any) {
 	newNode := &Node{Value: value}
 	if list.Tail == nil {
 		list.Tail = newNode
@@ -23,7 +23,7 @@ func (list *SinglyList) Push(value interface{}) {
 	list.Head = newNode
 }
 
-func (list *SinglyList) Append(value interface{}) {
+func (list *SinglyList) Append(value any) {
 	newNode := &Node{Value: value}
 
 	if list.Head == nil {
@@ -90,7 +90,7 @@ func (list *SinglyList) Reverse() {
 	list.Head = prev
 }
 
-func (list *SinglyList) NthNode(n int) interface{} {
+func (list *SinglyList) NthNode(n int) any {
 	current := list.Head
 
 	for i := 0; i <= n; i++ {
@@ -114,7 +114,7 @@ func (list *SinglyList) Print() {
 
 	fmt.Println(str)
 }
-func (list *SinglyList) Search(value interface{}) (*Node, int) {
+func (list *SinglyList) Search(value any) (*Node, int) {
 	current := list.Head
 
 	for current != nil {
@@ -127,8 +127,8 @@ func (list *SinglyList) Search(value interface{}) (*Node, int) {
 	return nil, -1
 }
 
-func (list *SinglyList) ToArray() []interface{} {
-	array := []interface{}{}
+func (list *SinglyList) ToArray() []any {
+	array := []any{}
 
 	current := list.Head
 
@@ -140,7 +140,7 @@ func (list *SinglyList) ToArray() []interface{} {
 	return array
 }
 
-func FromArray(array []interface{}) *SinglyList {
+func FromArray(array []any) *SinglyList {
 	head := &Node{Value: array[0]}
 	list := SinglyList{}
 	list.Head = head
