@@ -6,6 +6,22 @@ import (
 
 type Graph struct {
 	Vertexes map[int][]int
+	Directed bool
+}
+
+const Inf = 99999
+
+type Priority struct {
+	Cost  int
+	Value int
+}
+
+type WeightedGraph struct {
+	Vertexes map[int][]Priority
+}
+
+func (graph *WeightedGraph) AddVertex(src int, dst []Priority) {
+	graph.Vertexes[src] = append(graph.Vertexes[src], dst...)
 }
 
 func InsertMatrix(matrix *[][]int, x, y int) {
@@ -130,6 +146,7 @@ func (graph *Graph) DFS(source int) {
 	}
 }
 
+// review and fix bugs
 func (graph *Graph) PossiblePaths(start, end int) [][]int {
 	results := [][]int{}
 	stack := []int{start}
@@ -137,17 +154,86 @@ func (graph *Graph) PossiblePaths(start, end int) [][]int {
 	for len(stack) != 0 {
 		front := stack[len(stack)-1]
 		stack = stack[:len(stack)-1]
-		temp = append(temp, front)
+		if _, ok := graph.Vertexes[front]; ok || front == end {
+			temp = append(temp, front)
+			stack = append(stack, graph.Vertexes[front]...)
+		}
 		if temp[len(temp)-1] == end {
 			results = append(results, temp)
 			temp = []int{start}
 		}
-		stack = append(stack, graph.Vertexes[front]...)
 	}
 
 	return results
 }
 
+func (graph *Graph) CountPaths(src, dst int) int {
+	pathCount := 0
+
+	CountPathsUtil(graph, src, dst, &pathCount)
+
+	return pathCount
+}
+
+func CountPathsUtil(graph *Graph, src, dst int, pathCount *int) {
+	if src == dst {
+		*pathCount++
+	} else {
+		if _, ok := graph.Vertexes[src]; ok {
+			for _, value := range graph.Vertexes[src] {
+				CountPathsUtil(graph, value, dst, pathCount)
+			}
+		}
+	}
+}
+
 func (graph *Graph) AddVertex(source int, dst []int) {
 	graph.Vertexes[source] = append(graph.Vertexes[source], dst...)
+	if !graph.Directed {
+		for _, v := range dst {
+			graph.Vertexes[v] = append(graph.Vertexes[v], source)
+		}
+	}
+}
+
+func (graph *Graph) HaveCycle(source int) bool {
+	visited := map[int]bool{}
+	queue := []int{source}
+	for len(queue) != 0 {
+		front := queue[0]
+		queue = queue[1:]
+		fmt.Println(front)
+
+		for i := 0; i < len(graph.Vertexes[front]); i++ {
+			if visited[graph.Vertexes[front][i]] {
+				return true
+			}
+			visited[graph.Vertexes[front][i]] = true
+			queue = append(queue, graph.Vertexes[front][i])
+		}
+	}
+
+	return false
+}
+
+func FloydMarshal(graph *[][]int) [][]int {
+	dist := [][]int{}
+	for i := 0; i < len(*graph); i++ {
+		for j := 0; j < len((*graph)[i]); j++ {
+			AddEdge(&dist, i, (*graph)[i][j])
+		}
+	}
+	var i, j, k int
+
+	for i = 0; i < len(*graph); i++ {
+		for j = 0; j < len(*graph); j++ {
+			for k = 0; k < len(*graph); k++ {
+				if dist[i][j] > (dist[i][k]+dist[k][j]) && (dist[k][j] != Inf && dist[i][k] != Inf) {
+					dist[i][j] = dist[i][k] + dist[k][j]
+				}
+			}
+		}
+	}
+
+	return dist
 }
