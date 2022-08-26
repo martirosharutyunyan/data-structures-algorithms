@@ -237,3 +237,41 @@ func FloydMarshal(graph *[][]int) [][]int {
 
 	return dist
 }
+
+func MinDistance(dist []int, sptSet []bool, V int) int {
+	min := Inf
+	minIndex := 0
+
+	for v := 0; v < V; v++ {
+		if sptSet[v] == false && dist[v] <= min {
+			min = dist[v]
+			minIndex = v
+		}
+	}
+
+	return minIndex
+}
+
+func Dijkstra(graph [][]int, src int) []int {
+	dist := []int{}
+	sptSet := []bool{}
+
+	for i := 0; i < len(graph); i++ {
+		dist = append(dist, Inf)
+		sptSet = append(sptSet, false)
+	}
+
+	dist[src] = 0
+
+	for count := 0; count < len(graph)-1; count++ {
+		u := MinDistance(dist, sptSet, len(graph))
+		sptSet[u] = true
+		for v := 0; v < len(graph); v++ {
+			if !sptSet[v] && graph[u][v] != 0 && dist[u] != Inf && dist[u]+graph[u][v] < dist[v] {
+				dist[v] = dist[u] + graph[u][v]
+			}
+		}
+	}
+
+	return dist
+}
