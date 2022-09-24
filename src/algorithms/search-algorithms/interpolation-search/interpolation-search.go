@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func interpolationSearch(array []int, elem int) int {
+func InterpolationSearch(array []int, elem int) int {
 	size := len(array)
 	low := 0
 	high := size - 1

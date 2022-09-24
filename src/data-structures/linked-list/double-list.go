@@ -74,7 +74,7 @@ func (ll *Doubly) DelAtEnd() any {
 }
 
 func (ll *Doubly) Count() any {
-	var ctr int = 0
+	ctr := 0
 
 	for cur := ll.Head; cur != nil; cur = cur.Next {
 		ctr += 1

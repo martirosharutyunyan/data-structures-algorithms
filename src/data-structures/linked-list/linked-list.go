@@ -128,7 +128,7 @@ func (list *SinglyList) Search(value any) (*Node, int) {
 }
 
 func (list *SinglyList) ToArray() []any {
-	array := []any{}
+	var array []any
 
 	current := list.Head
 

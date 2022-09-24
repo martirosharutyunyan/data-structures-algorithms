@@ -1,10 +1,8 @@
 package insertionSort
 
-type Type interface {
-	int | int32 | int64 | string | float64
-}
+import "github.com/martirosharutyunyan/data-structures-algorithms/src/utils"
 
-func InsertionSort[T Type](array []T) {
+func InsertionSort[T utils.Type](array []T) {
 	var j int
 	var key T
 	for i := 1; i < len(array); i++ {

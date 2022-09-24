@@ -1,16 +1,14 @@
 package quickSort
 
-type Type interface {
-	int | int32 | int64 | string
-}
+import "github.com/martirosharutyunyan/data-structures-algorithms/src/utils"
 
-func QuickSort[T Type](array []T) []T {
+func QuickSort[T utils.Type](array []T) []T {
 	if len(array) < 2 {
 		return array
 	}
 
-	var leftItems = []T{}
-	var rightItems = []T{}
+	var leftItems []T
+	var rightItems []T
 	var pivot = array[0]
 
 	for i := 1; i < len(array); i++ {

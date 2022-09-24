@@ -4,7 +4,7 @@ import (
 	"math"
 )
 
-func fibonachiSearch(array []int, elem int) int {
+func FibonachiSearch(array []int, elem int) int {
 
 	fibMMm2 := 0              // (m-2)'th Fibonacci No.
 	fibMMm1 := 1              // (m-1)'th Fibonacci No.

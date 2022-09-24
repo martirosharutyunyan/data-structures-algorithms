@@ -4,7 +4,7 @@ import (
 	"math"
 )
 
-func jumpSearch(array []int, elem int) int {
+func JumpSearch(array []int, elem int) int {
 	step := int(math.Sqrt(float64(elem)))
 
 	prev := 0

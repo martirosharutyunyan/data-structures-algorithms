@@ -30,13 +30,13 @@ func PreorderRecursive(root *Node) {
 }
 
 func PreorderIterative(root *Node) []any {
-	preorder := []any{}
+	var preorder []any
 	current := root
 	if root == nil {
 		return preorder
 	}
 
-	stack := []*Node{}
+	var stack []*Node
 
 	for current != nil || len(stack) != 0 {
 		if current != nil {
@@ -64,13 +64,13 @@ func InorderRecursive(root *Node) {
 }
 
 func InorderIterative(root *Node) []any {
-	inorder := []any{}
+	var inorder []any
 
 	if root == nil {
 		return inorder
 	}
 
-	stack := []*Node{}
+	var stack []*Node
 
 	current := root
 
@@ -102,9 +102,9 @@ func PostorderRecursive(root *Node) {
 }
 
 func PostOrderIterative(root *Node) []any {
-	postorder := []any{}
+	var postorder []any
 
-	firstStack, secondStack := []*Node{}, []*Node{}
+	var firstStack, secondStack []*Node
 
 	if root == nil {
 		return postorder
@@ -136,7 +136,7 @@ func PostOrderIterative(root *Node) []any {
 }
 
 func Levelorder(root *Node) []any {
-	levelorder := []any{}
+	var levelorder []any
 
 	q := []*Node{root}
 	var node *Node
@@ -409,7 +409,6 @@ func BuildTreeFromInorderAndPreorderTraversalsWrap(inorder, preorder []any, star
 		hashmap[inorder[i]] = i
 	}
 
-	var preIndex int = 0
-
+	preIndex := 0
 	return TreeFromInorderAndPreorderTraversals(inorder, preorder, start, end, &hashmap, &preIndex)
 }

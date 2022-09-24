@@ -4,7 +4,7 @@ import (
 	"math"
 )
 
-func exponentialSearch(array []int, elem int) int {
+func ExponentialSearch(array []int, elem int) int {
 	if array[0] == elem {
 		return 0
 	}
@@ -14,10 +14,10 @@ func exponentialSearch(array []int, elem int) int {
 		i *= 2
 	}
 
-	return binarySearch(array, i/2, int(math.Min(float64(i), float64(len(array)-1))), elem)
+	return BinarySearch(array, i/2, int(math.Min(float64(i), float64(len(array)-1))), elem)
 }
 
-func binarySearch(array []int, left int, right int, elem int) int {
+func BinarySearch(array []int, left int, right int, elem int) int {
 	var middle int
 
 	for right >= left {

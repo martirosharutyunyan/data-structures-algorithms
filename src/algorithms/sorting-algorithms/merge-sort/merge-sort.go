@@ -1,14 +1,11 @@
 package mergeSort
 
 import (
+	"github.com/martirosharutyunyan/data-structures-algorithms/src/utils"
 	"math"
 )
 
-type Type interface {
-	int | int32 | int64 | string
-}
-
-func Merge[T Type](left []T, right []T) []T {
+func Merge[T utils.Type](left []T, right []T) []T {
 	var array = make([]T, len(left)+len(right))
 	var i = 0
 	var j = 0
@@ -36,7 +33,7 @@ func Merge[T Type](left []T, right []T) []T {
 	return array
 }
 
-func MergeSort[T Type](array []T) []T {
+func MergeSort[T utils.Type](array []T) []T {
 	if len(array) < 2 {
 		return array
 	}
@@ -47,7 +44,7 @@ func MergeSort[T Type](array []T) []T {
 	return Merge(leftItems, rightItems)
 }
 
-func MergeIterative[T Type](items []T) []T {
+func MergeIterative[T utils.Type](items []T) []T {
 	for step := 1; step < len(items); step += step {
 		for i := 0; i+step < len(items); i += 2 * step {
 			tmp := Merge(items[i:i+step], items[i+step:int(math.Min(float64(i+2*step), float64(len(items))))])

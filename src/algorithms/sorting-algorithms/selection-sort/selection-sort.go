@@ -1,16 +1,14 @@
 package main
 
-type Type interface {
-	int | int32 | int64 | string
-}
+import "github.com/martirosharutyunyan/data-structures-algorithms/src/utils"
 
-func swap[T Type](firstPointer *T, secondPointer *T) {
+func swap[T utils.Type](firstPointer *T, secondPointer *T) {
 	temp := *firstPointer
 	*firstPointer = *secondPointer
 	*secondPointer = temp
 }
 
-func SelectionSort[T Type](array []T) {
+func SelectionSort[T utils.Type](array []T) {
 	var n int = len(array)
 	for i := 0; i < n; i++ {
 		min := i

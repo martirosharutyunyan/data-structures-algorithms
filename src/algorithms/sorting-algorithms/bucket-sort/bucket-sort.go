@@ -1,8 +1,8 @@
 package bucketSort
 
-import insertionSort "DSA/src/algorithms/sorting-algorithms/insertion-sort"
+import insertionSort "github.com/martirosharutyunyan/data-structures-algorithms/src/algorithms/sorting-algorithms/insertion-sort"
 
-func BuckerSort(array []float64) {
+func BucketSort(array []float64) {
 	var buckets = make([][]float64, len(array))
 
 	for i := 0; i < len(array); i++ {

@@ -28,7 +28,7 @@ func InsertMatrix(matrix *[][]int, x, y int) {
 	if len(*matrix) < x+1 {
 		temp := make([][]int, x+1)
 		for i := 0; i < len(*matrix); i++ {
-			subMatrix := []int{}
+			var subMatrix []int
 			for j := 0; j < len((*matrix)[i]); j++ {
 				subMatrix = append(subMatrix, (*matrix)[i][j])
 			}
@@ -69,7 +69,7 @@ func IsBipartite(adj [][]int) bool {
 	col := make([]int, len(adj))
 	Fill(&col, -1)
 
-	queue := [][]int{}
+	var queue [][]int
 
 	for i := 0; i < len(adj); i++ {
 		if col[i] == -1 {
@@ -148,9 +148,9 @@ func (graph *Graph) DFS(source int) {
 
 // review and fix bugs
 func (graph *Graph) PossiblePaths(start, end int) [][]int {
-	results := [][]int{}
+	var results [][]int
 	stack := []int{start}
-	temp := []int{}
+	var temp []int
 	for len(stack) != 0 {
 		front := stack[len(stack)-1]
 		stack = stack[:len(stack)-1]
@@ -217,7 +217,7 @@ func (graph *Graph) HaveCycle(source int) bool {
 }
 
 func FloydMarshal(graph *[][]int) [][]int {
-	dist := [][]int{}
+	var dist [][]int
 	for i := 0; i < len(*graph); i++ {
 		for j := 0; j < len((*graph)[i]); j++ {
 			AddEdge(&dist, i, (*graph)[i][j])
@@ -253,8 +253,8 @@ func MinDistance(dist []int, sptSet []bool, V int) int {
 }
 
 func Dijkstra(graph [][]int, src int) []int {
-	dist := []int{}
-	sptSet := []bool{}
+	var dist []int
+	var sptSet []bool
 
 	for i := 0; i < len(graph); i++ {
 		dist = append(dist, Inf)

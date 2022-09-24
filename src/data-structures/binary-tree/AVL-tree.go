@@ -161,13 +161,13 @@ func AVLMinNodeValue(node *AVLNode) *AVLNode {
 }
 
 func AVLInorderIterative(root *AVLNode) []int {
-	inorder := []int{}
+	var inorder []int
 
 	if root == nil {
 		return inorder
 	}
 
-	stack := []*AVLNode{}
+	var stack []*AVLNode
 
 	current := root
 

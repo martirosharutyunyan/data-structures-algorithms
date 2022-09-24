@@ -1,16 +1,13 @@
 package timSort
 
 import (
+	"github.com/martirosharutyunyan/data-structures-algorithms/src/utils"
 	"math"
 )
 
-type Type interface {
-	int | int32 | int64 | string
-}
-
 var min int = 16
 
-func insertionSort[T Type](array []T, left int, right int) {
+func insertionSort[T utils.Type](array []T, left int, right int) {
 	var j int
 	var key T
 	for i := left + 1; i <= right; i++ {
@@ -25,7 +22,7 @@ func insertionSort[T Type](array []T, left int, right int) {
 	}
 }
 
-func merge[T Type](array []T, left int, middle int, right int) {
+func merge[T utils.Type](array []T, left int, middle int, right int) {
 	n1 := middle - left + 1
 	n2 := right - middle
 
@@ -66,7 +63,7 @@ func merge[T Type](array []T, left int, middle int, right int) {
 
 }
 
-func TimSort[T Type](array []T) {
+func TimSort[T utils.Type](array []T) {
 	n := len(array)
 	minMerge := 32
 	for i := 0; i < n; i += min {

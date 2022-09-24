@@ -1,6 +1,6 @@
 package bTree
 
-import mergeSort "DSA/src/algorithms/sorting-algorithms/merge-sort"
+import mergeSort "github.com/martirosharutyunyan/data-structures-algorithms/src/algorithms/sorting-algorithms/merge-sort"
 
 type BST struct {
 	Root *Node
@@ -188,7 +188,7 @@ func ConstructBSTFromPreorder(preorder []any) *Node {
 }
 
 func ToIntArray(array []any) []int {
-	temp := []int{}
+	var temp []int
 	for _, value := range array {
 		temp = append(temp, value.(int))
 	}
@@ -197,7 +197,7 @@ func ToIntArray(array []any) []int {
 }
 
 func ToInterfaceArray(array []int) []any {
-	temp := []any{}
+	var temp []any
 
 	for _, value := range array {
 		temp = append(temp, value)
@@ -221,7 +221,7 @@ func ArrayToBST(array []any, root *Node, index *int) *Node {
 }
 
 func ArraySortInPreorder(array []any) []any {
-	result := []any{}
+	var result []any
 	queue := [][]any{array}
 
 	for len(queue) > 0 {
