@@ -1,3 +1,3 @@
-module github.com/martirosharutyunyan/data-structures-algorithms/v2
+module github.com/martirosharutyunyan/data-structures-algorithms
 
 go 1.19
